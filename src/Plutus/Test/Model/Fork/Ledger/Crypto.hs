@@ -28,7 +28,6 @@ module Plutus.Test.Model.Fork.Ledger.Crypto
 import Prelude
 import Data.Bifunctor
 
-import Control.Monad
 import Cardano.Crypto.Wallet qualified as Crypto
 import Codec.Serialise.Class (Serialise)
 import Control.DeepSeq (NFData)
