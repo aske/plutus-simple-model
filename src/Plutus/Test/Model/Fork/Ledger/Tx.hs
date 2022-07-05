@@ -14,7 +14,7 @@ import Data.Map (Map)
 import Data.Set qualified as Set
 import GHC.Generics (Generic)
 import Plutus.V1.Ledger.Scripts
-import Plutus.V1.Ledger.Tx
+import Plutus.V1.Ledger.Tx hiding (Tx (..), strip, TxStripped (..))
 import Plutus.V1.Ledger.Api
 import PlutusTx.Lattice
 import Cardano.Crypto.Hash (SHA256, digest)
@@ -91,4 +91,3 @@ data TxStripped = TxStripped {
 strip :: Tx -> TxStripped
 strip Tx{..} = TxStripped i txOutputs txMint txFee where
     i = Set.map txInRef txInputs
-
