@@ -277,7 +277,7 @@ toCardanoTxInWitness
         (P.Datum datum))
     = C.ScriptWitness C.ScriptWitnessForSpending <$>
         (C.PlutusScriptWitness C.PlutusScriptV1InAlonzo C.PlutusScriptV1
-        <$> (C.PScript <$> toCardanoPlutusScript validator)
+        <$> (toCardanoPlutusScript validator)
         <*> pure (C.ScriptDatumForTxIn $ toCardanoScriptData datum)
         <*> pure (toCardanoScriptData redeemer)
         <*> pure zeroExecutionUnits
@@ -288,7 +288,7 @@ toCardanoMintWitness redeemers idx (P.MintingPolicy script) = do
     let redeemerPtr = P.RedeemerPtr P.Mint (fromIntegral idx)
     P.Redeemer redeemer <- maybe (Left MissingMintingPolicyRedeemer) Right (Map.lookup redeemerPtr redeemers)
     C.PlutusScriptWitness C.PlutusScriptV1InAlonzo C.PlutusScriptV1
-        <$> (C.PScript <$> toCardanoPlutusScript script)
+        <$> (toCardanoPlutusScript script)
         <*> pure C.NoScriptDatumForMint
         <*> pure (C.fromPlutusData $ Api.toData redeemer)
         <*> pure zeroExecutionUnits
@@ -310,7 +310,6 @@ toCardanoTxOut networkId fromHash (P.TxOut addr value datumHash) =
     C.TxOut <$> toCardanoAddressInEra networkId addr
             <*> toCardanoTxOutValue value
             <*> fromHash datumHash
-            <*> pure C.ReferenceScriptNone
 
 toCardanoTxOutUnsafe
     :: C.NetworkId
@@ -321,7 +320,6 @@ toCardanoTxOutUnsafe networkId fromHash (P.TxOut addr value datumHash) =
     C.TxOut <$> toCardanoAddressInEra networkId addr
             <*> toCardanoTxOutValueUnsafe value
             <*> fromHash datumHash
-            <*> pure C.ReferenceScriptNone
 
 {-
 lookupDatum :: Map P.DatumHash P.Datum -> Maybe P.DatumHash -> Either ToCardanoError (C.TxOutDatum C.CtxTx C.AlonzoEra)
