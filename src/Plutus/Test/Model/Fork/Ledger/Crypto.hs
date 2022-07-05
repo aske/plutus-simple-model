@@ -44,7 +44,7 @@ import Data.String
 import GHC.Generics (Generic)
 import Plutus.V1.Ledger.Api (LedgerBytes (LedgerBytes), TxId (TxId), fromBuiltin, toBuiltin, fromBytes)
 import Plutus.V1.Ledger.Bytes qualified as KB
-import Plutus.V1.Ledger.Crypto as Export
+import Plutus.V1.Ledger.Crypto as Export hiding (Signature)
 import PlutusTx qualified
 import PlutusTx.Lift (makeLift)
 import PlutusTx.Prelude qualified as PlutusTx
