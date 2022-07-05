@@ -58,8 +58,6 @@ instance ToHttpApiData LedgerBytes where
 instance FromHttpApiData LedgerBytes where
      parseUrlPiece = bimap Text.pack fromBytes . JSON.tryDecode
 
-deriving newtype instance Serialise LedgerBytes
-
 -- | Passphrase newtype to mark intent
 newtype Passphrase =
   Passphrase { unPassphrase :: BS.ByteString }
