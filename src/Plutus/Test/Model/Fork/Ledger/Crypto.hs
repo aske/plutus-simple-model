@@ -59,10 +59,6 @@ instance FromHttpApiData LedgerBytes where
      parseUrlPiece = bimap Text.pack fromBytes . JSON.tryDecode
 
 deriving newtype instance Serialise LedgerBytes
-instance ToJSON LedgerBytes where
-  toJSON = JSON.toJSON . toUrlPiece
-instance FromJSON LedgerBytes where
-  parseJSON x = either (const mzero) pure . parseUrlPiece =<< JSON.parseJSON x
 
 -- | Passphrase newtype to mark intent
 newtype Passphrase =
